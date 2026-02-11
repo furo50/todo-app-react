@@ -3,38 +3,60 @@ import TodoInput from './components/TodoInput/TodoInput';
 import TodoList from './components/TodoList/TodoList';
 import TodoFilter from './components/TodoFilter/TodoFilter';
 import TodoStats from './components/TodoStats/TodoStats';
+import { todoApi } from './todoApi';
 import './App.css';
 
 function App() {
-  const [allTodos, setAllTodos] = useState(() => {
-    const savedTodos = localStorage.getItem('todos');
-    return savedTodos ? JSON.parse(savedTodos) : [];
-  });
-
+  const [allTodos, setAllTodos] = useState([]);
   const [currentFilter, setCurrentFilter] = useState('all');
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Beim Start: Lade Todos vom Backend
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(allTodos));
-  }, [allTodos]);
+    loadTodos();
+  }, []);
 
-  const handleAddNewTodo = (todoText) => {
-    const newTodo = {
-      id: Date.now(),
-      text: todoText,
-      completed: false,
-      createdAt: new Date().toISOString()
-    };
-    setAllTodos([...allTodos, newTodo]);
+  const loadTodos = async () => {
+    try {
+      setIsLoading(true);
+      const todos = await todoApi.getAllTodos();
+      setAllTodos(todos);
+    } catch (error) {
+      console.error('Fehler beim Laden der Todos:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleToggleTodoComplete = (todoId) => {
-    setAllTodos(allTodos.map(todo =>
-      todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
-    ));
+  const handleAddNewTodo = async (todoText) => {
+    try {
+      const newTodo = await todoApi.createTodo(todoText);
+      setAllTodos([...allTodos, newTodo]);
+    } catch (error) {
+      console.error('Fehler beim Erstellen des Todos:', error);
+    }
   };
 
-  const handleDeleteTodo = (todoId) => {
-    setAllTodos(allTodos.filter(todo => todo.id !== todoId));
+  const handleToggleTodoComplete = async (todoId) => {
+    try {
+      const todo = allTodos.find(t => t.id === todoId);
+      const updatedTodo = await todoApi.updateTodo(todoId, {
+        ...todo,
+        completed: !todo.completed
+      });
+      setAllTodos(allTodos.map(t => t.id === todoId ? updatedTodo : t));
+    } catch (error) {
+      console.error('Fehler beim Aktualisieren des Todos:', error);
+    }
+  };
+
+  const handleDeleteTodo = async (todoId) => {
+    try {
+      await todoApi.deleteTodo(todoId);
+      setAllTodos(allTodos.filter(todo => todo.id !== todoId));
+    } catch (error) {
+      console.error('Fehler beim Löschen des Todos:', error);
+    }
   };
 
   const handleFilterChange = (newFilter) => {
@@ -61,6 +83,17 @@ function App() {
 
   const filteredTodos = getFilteredTodos();
   const todoCounts = getTodoCounts();
+
+  if (isLoading) {
+    return (
+      <div className="app-container">
+        <header className="app-header">
+          <h1 className="app-title">✨ Meine Aufgaben</h1>
+          <p className="app-subtitle">Lädt...</p>
+        </header>
+      </div>
+    );
+  }
 
   return (
     <div className="app-container">
