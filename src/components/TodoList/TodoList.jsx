@@ -1,7 +1,7 @@
 import TodoItem from '../TodoItem/TodoItem';
 import './TodoList.css';
 
-function TodoList({ todos, onToggleComplete, onDeleteTodo }) {
+function TodoList({ todos, onToggleComplete, onDeleteTodo, onUpdateTodo }) {
   if (todos.length === 0) {
     return (
       <div className="empty-state">
@@ -20,6 +20,7 @@ function TodoList({ todos, onToggleComplete, onDeleteTodo }) {
           todo={todo}
           onToggleComplete={onToggleComplete}
           onDeleteTodo={onDeleteTodo}
+          onUpdateTodo={onUpdateTodo}
         />
       ))}
     </div>

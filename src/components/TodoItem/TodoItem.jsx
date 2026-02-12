@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import './TodoItem.css';
 
-function TodoItem({ todo, onToggleComplete, onDeleteTodo }) {
+function TodoItem({ todo, onToggleComplete, onDeleteTodo, onUpdateTodo }) {
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editText, setEditText] = useState(todo.text);
 
   const handleDeleteClick = () => {
     setIsDeleting(true);
@@ -15,6 +17,36 @@ function TodoItem({ todo, onToggleComplete, onDeleteTodo }) {
     onToggleComplete(todo.id);
   };
 
+  const handleDoubleClick = () => {
+    if (!todo.completed) {
+      setIsEditing(true);
+      setEditText(todo.text);
+    }
+  };
+
+  const handleEditSubmit = () => {
+    if (editText.trim() !== '') {
+      onUpdateTodo(todo.id, editText.trim());
+      setIsEditing(false);
+    } else {
+      setEditText(todo.text);
+      setIsEditing(false);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleEditSubmit();
+    } else if (e.key === 'Escape') {
+      setEditText(todo.text);
+      setIsEditing(false);
+    }
+  };
+
+  const handleBlur = () => {
+    handleEditSubmit();
+  };
+
   return (
     <div className={`todo-item ${todo.completed ? 'completed' : ''} ${isDeleting ? 'deleting' : ''}`}>
       <div className="todo-item-content">
@@ -23,11 +55,26 @@ function TodoItem({ todo, onToggleComplete, onDeleteTodo }) {
           className="todo-checkbox"
           checked={todo.completed}
           onChange={handleCheckboxChange}
-          id={`todo-${todo.id}`}
         />
-        <label htmlFor={`todo-${todo.id}`} className="todo-text">
-          {todo.text}
-        </label>
+        
+        {isEditing ? (
+          <input
+            type="text"
+            className="todo-edit-input"
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onBlur={handleBlur}
+            autoFocus
+          />
+        ) : (
+          <label 
+            className="todo-text"
+            onDoubleClick={handleDoubleClick}
+          >
+            {todo.text}
+          </label>
+        )}
       </div>
       
       <button 

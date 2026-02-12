@@ -11,7 +11,6 @@ function App() {
   const [currentFilter, setCurrentFilter] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
 
-  // Beim Start: Lade Todos vom Backend
   useEffect(() => {
     loadTodos();
   }, []);
@@ -56,6 +55,19 @@ function App() {
       setAllTodos(allTodos.filter(todo => todo.id !== todoId));
     } catch (error) {
       console.error('Fehler beim Löschen des Todos:', error);
+    }
+  };
+
+  const handleUpdateTodoText = async (todoId, newText) => {
+    try {
+      const todo = allTodos.find(t => t.id === todoId);
+      const updatedTodo = await todoApi.updateTodo(todoId, {
+        ...todo,
+        text: newText
+      });
+      setAllTodos(allTodos.map(t => t.id === todoId ? updatedTodo : t));
+    } catch (error) {
+      console.error('Fehler beim Aktualisieren des Todo-Texts:', error);
     }
   };
 
@@ -122,6 +134,7 @@ function App() {
           todos={filteredTodos}
           onToggleComplete={handleToggleTodoComplete}
           onDeleteTodo={handleDeleteTodo}
+          onUpdateTodo={handleUpdateTodoText}
         />
       </main>
     </div>
