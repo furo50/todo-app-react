@@ -1,10 +1,11 @@
 .todo-stats {
   padding: 20px;
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  background: linear-gradient(135deg, var(--stats-bg-start) 0%, var(--stats-bg-end) 100%);
   border-radius: 12px;
   margin-bottom: 24px;
-  border: 1px solid #bae6fd;
+  border: 1px solid var(--stats-border);
   animation: slideIn 0.4s ease-out;
+  transition: all 0.3s ease;
 }
 
 @keyframes slideIn {
@@ -27,38 +28,43 @@
 
 .stats-text {
   font-size: 16px;
-  color: #334155;
+  color: var(--stats-text);
+  transition: color 0.3s ease;
 }
 
 .stats-number {
   font-size: 24px;
   font-weight: 700;
-  color: #6366f1;
+  color: var(--stats-number);
+  transition: color 0.3s ease;
 }
 
 .stats-label {
   font-weight: 500;
-  color: #64748b;
+  color: var(--stats-label);
+  transition: color 0.3s ease;
 }
 
 .stats-percentage {
   font-size: 28px;
   font-weight: 700;
-  color: #6366f1;
+  color: var(--stats-number);
+  transition: color 0.3s ease;
 }
 
 .progress-bar-container {
   height: 32px;
-  background-color: #e2e8f0;
+  background-color: var(--progress-bg);
   border-radius: 16px;
   overflow: hidden;
   position: relative;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.3s ease;
 }
 
 .progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(90deg, var(--progress-fill-start) 0%, var(--progress-fill-end) 100%);
   border-radius: 16px;
   transition: width 0.6s ease;
   display: flex;
@@ -78,8 +84,9 @@
   margin-top: 12px;
   text-align: center;
   font-size: 14px;
-  color: #64748b;
+  color: var(--stats-label);
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .stats-celebration {

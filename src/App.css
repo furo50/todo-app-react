@@ -1,3 +1,109 @@
+/* ============================================
+   CSS VARIABLES - THEME SYSTEM
+   ============================================ */
+
+:root {
+  /* Light Mode */
+  --bg-gradient-start: #667eea;
+  --bg-gradient-end: #764ba2;
+  
+  --text-primary: #1f2937;
+  --text-secondary: #4a5568;
+  --text-muted: #9ca3af;
+  --text-light: rgba(255, 255, 255, 0.95);
+  
+  --container-bg: rgba(255, 255, 255, 0.95);
+  --container-shadow: rgba(0, 0, 0, 0.3);
+  
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: rgba(0, 0, 0, 0.1);
+  
+  --input-bg: #ffffff;
+  --input-border: #e0e0e0;
+  --input-focus: #6366f1;
+  --input-placeholder: #9ca3af;
+  
+  --filter-bg: #f9fafb;
+  --filter-text: #6b7290;
+  --filter-count-bg: #e5e7eb;
+  --filter-count-hover: #d1d5db;
+  
+  --todo-border: #6366f1;
+  --todo-border-completed: #10b981;
+  --todo-completed-bg: #f0fdf4;
+  
+  --delete-button-bg: #fee2e2;
+  --delete-button-hover: #fecaca;
+  
+  --stats-bg-start: #f0f9ff;
+  --stats-bg-end: #e0f2fe;
+  --stats-border: #bae6fd;
+  --stats-text: #334155;
+  --stats-label: #64748b;
+  --stats-number: #6366f1;
+  
+  --progress-bg: #e2e8f0;
+  --progress-fill-start: #6366f1;
+  --progress-fill-end: #8b5cf6;
+  
+  --empty-text: #6b7280;
+  --empty-subtext: #9ca3af;
+}
+
+[data-theme="dark"] {
+  /* Dark Mode */
+  --bg-gradient-start: #1a1a2e;
+  --bg-gradient-end: #16213e;
+  
+  --text-primary: #e2e8f0;
+  --text-secondary: #cbd5e0;
+  --text-muted: #94a3b8;
+  --text-light: rgba(255, 255, 255, 0.95);
+  
+  --container-bg: rgba(30, 30, 46, 0.95);
+  --container-shadow: rgba(0, 0, 0, 0.5);
+  
+  --card-bg: #2d3748;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: rgba(0, 0, 0, 0.5);
+  
+  --input-bg: #374151;
+  --input-border: #4b5563;
+  --input-focus: #818cf8;
+  --input-placeholder: #6b7280;
+  
+  --filter-bg: #374151;
+  --filter-text: #9ca3af;
+  --filter-count-bg: #4b5563;
+  --filter-count-hover: #6b7280;
+  
+  --todo-border: #818cf8;
+  --todo-border-completed: #34d399;
+  --todo-completed-bg: #1e3a28;
+  
+  --delete-button-bg: #7f1d1d;
+  --delete-button-hover: #991b1b;
+  
+  --stats-bg-start: #1e293b;
+  --stats-bg-end: #0f172a;
+  --stats-border: #334155;
+  --stats-text: #e2e8f0;
+  --stats-label: #94a3b8;
+  --stats-number: #818cf8;
+  
+  --progress-bg: #374151;
+  --progress-fill-start: #818cf8;
+  --progress-fill-end: #a78bfa;
+  
+  --empty-text: #cbd5e0;
+  --empty-subtext: #94a3b8;
+}
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
 * {
   margin: 0;
   padding: 0;
@@ -6,13 +112,18 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
   min-height: 100vh;
   padding: 20px;
+  transition: background 0.3s ease;
 }
 
+/* ============================================
+   APP CONTAINER
+   ============================================ */
+
 .app-container {
-  max-width: 700px;
+  max-width: 700px;  /* ← WICHTIG! */
   margin: 0 auto;
   animation: fadeInScale 0.5s ease-out;
 }
@@ -28,30 +139,52 @@ body {
   }
 }
 
+/* ============================================
+   HEADER
+   ============================================ */
+
 .app-header {
   text-align: center;
   margin-bottom: 40px;
   animation: slideDown 0.6s ease-out;
 }
 
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .app-title {
   font-size: 48px;
   font-weight: 700;
-  color: white;
+  color: var(--text-light);
   margin-bottom: 8px;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: color 0.3s ease;
 }
 
 .app-subtitle {
   font-size: 18px;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-light);
   font-weight: 300;
+  transition: color 0.3s ease;
 }
 
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+
 .app-main {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 32px;
+  background: var(--card-bg);
+  padding: 32px;  /* ← WICHTIG! */
   border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px var(--container-shadow);
   backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 }

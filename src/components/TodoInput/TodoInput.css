@@ -20,21 +20,22 @@
   flex: 1;
   padding: 16px 20px;
   font-size: 16px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--input-border);
   border-radius: 12px;
-  background-color: #ffffff;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
   transition: all 0.3s ease;
   outline: none;
 }
 
 .todo-input-field:focus {
-  border-color: #6366f1;
+  border-color: var(--input-focus);
   box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
   transform: translateY(-2px);
 }
 
 .todo-input-field::placeholder {
-  color: #9ca3af;
+  color: var(--input-placeholder);
 }
 
 .todo-add-button {

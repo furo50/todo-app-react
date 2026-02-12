@@ -4,10 +4,10 @@
   justify-content: space-between;
   padding: 16px 20px;
   margin-bottom: 12px;
-  background: white;
+  background: var(--card-bg);
   border-radius: 12px;
-  border-left: 4px solid #6366f1;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid var(--todo-border);
+  box-shadow: 0 2px 8px var(--card-shadow);
   transition: all 0.3s ease;
   animation: slideIn 0.3s ease-out;
 }
@@ -25,12 +25,12 @@
 
 .todo-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--card-shadow-hover);
 }
 
 .todo-item.completed {
-  border-left-color: #10b981;
-  background-color: #f0fdf4;
+  border-left-color: var(--todo-border-completed);
+  background-color: var(--todo-completed-bg);
 }
 
 .todo-item.deleting {
@@ -60,7 +60,7 @@
 
 .todo-text {
   font-size: 16px;
-  color: #1f2937;
+  color: var(--text-primary);
   cursor: pointer;
   transition: all 0.3s ease;
   user-select: none;
@@ -68,12 +68,12 @@
 
 .todo-item.completed .todo-text {
   text-decoration: line-through;
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
 .todo-delete-button {
   padding: 8px 12px;
-  background-color: #fee2e2;
+  background-color: var(--delete-button-bg);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -86,7 +86,7 @@
 }
 
 .todo-delete-button:hover {
-  background-color: #fecaca;
+  background-color: var(--delete-button-hover);
   transform: scale(1.1);
 }
 
@@ -99,9 +99,10 @@
   flex: 1;
   padding: 8px 12px;
   font-size: 16px;
-  border: 2px solid #6366f1;
+  border: 2px solid var(--input-focus);
   border-radius: 6px;
-  background-color: #ffffff;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
   outline: none;
   transition: all 0.3s ease;
 }

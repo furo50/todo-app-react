@@ -3,6 +3,7 @@ import TodoInput from './components/TodoInput/TodoInput';
 import TodoList from './components/TodoList/TodoList';
 import TodoFilter from './components/TodoFilter/TodoFilter';
 import TodoStats from './components/TodoStats/TodoStats';
+import ThemeToggle from './components/ThemeToggle/ThemeToggle'; 
 import { todoApi } from './todoApi';
 import './App.css';
 
@@ -109,6 +110,7 @@ function App() {
 
   return (
     <div className="app-container">
+      <ThemeToggle />
       <header className="app-header">
         <h1 className="app-title">✨ Meine Aufgaben</h1>
         <p className="app-subtitle">Organisiere deinen Tag</p>
