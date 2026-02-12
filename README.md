@@ -1,16 +1,99 @@
-# React + Vite
+# ✨ Todo App - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Eine moderne, responsive Todo-Anwendung gebaut mit React und Vite. Vollständige CRUD-Funktionalität mit Filter-Optionen, Fortschritts-Tracking und ansprechenden Animationen.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ✅ **Todo-Management**: Erstellen, Bearbeiten, Löschen und Abhaken von Aufgaben
+- 🎯 **Smart Filtering**: Zeige alle, aktive oder erledigte Aufgaben
+- 📊 **Fortschritts-Tracking**: Visueller Fortschrittsbalken mit Statistiken
+- 💾 **Backend-Integration**: Verbindung zu Spring Boot REST API
+- 🎨 **Moderne UI**: Gradient-Design mit smooth Animationen
+- 📱 **Responsive**: Funktioniert auf Desktop und Mobile
+- ⚡ **Fast**: Gebaut mit Vite für optimale Performance
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React** 18.x - UI Framework
+- **Vite** - Build Tool & Dev Server
+- **Axios** - HTTP Client für API-Calls
+- **CSS3** - Styling mit Animationen
+- **Component Architecture** - Modulare, wiederverwendbare Komponenten
 
-## Expanding the ESLint configuration
+## 📋 Voraussetzungen
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Node.js (Version 18 oder höher)
+- npm oder yarn
+- Laufendes Backend (siehe [todo-app-backend](https://github.com/furo50/todo-app-backend))
+
+## 🔧 Installation
+
+1. **Repository klonen:**
+```bash
+git clone https://github.com/furo50/todo-app-react.git
+cd todo-app-react
+```
+
+2. **Dependencies installieren:**
+```bash
+npm install
+```
+
+3. **Development Server starten:**
+```bash
+npm run dev
+```
+
+4. **Öffne den Browser:**
+```
+http://localhost:5173
+```
+
+## 🏗️ Projekt-Struktur
+```
+src/
+├── components/
+│   ├── TodoInput/       # Eingabefeld für neue Todos
+│   ├── TodoItem/        # Einzelnes Todo mit Checkbox & Delete
+│   ├── TodoList/        # Liste aller Todos
+│   ├── TodoFilter/      # Filter-Buttons (Alle/Aktiv/Erledigt)
+│   └── TodoStats/       # Fortschrittsbalken & Statistiken
+├── todoApi.js           # Axios API Service
+├── App.jsx              # Haupt-Komponente
+└── main.jsx             # Entry Point
+```
+
+## 🌐 API Endpoints
+
+Das Frontend kommuniziert mit folgenden Backend-Endpoints:
+
+- `GET /api/todos` - Alle Todos abrufen
+- `POST /api/todos` - Neues Todo erstellen
+- `PUT /api/todos/:id` - Todo aktualisieren
+- `DELETE /api/todos/:id` - Todo löschen
+
+**Backend-Repository:** [todo-app-backend](https://github.com/furo50/todo-app-backend)
+
+## 📦 Build für Production
+```bash
+npm run build
+```
+
+Die optimierten Dateien landen im `dist/` Ordner.
+
+## 🎯 Zukünftige Features
+
+- [ ] Bearbeiten-Funktion für Todo-Text
+- [ ] Dark Mode Toggle
+- [ ] Drag & Drop zum Umsortieren
+- [ ] Kategorien/Tags
+- [ ] Fälligkeitsdatum
+
+## 👤 Autor
+
+**Mehmet Furkan Özer**
+- GitHub: [@furo50](https://github.com/furo50)
+
+## 📄 Lizenz
+
+Dieses Projekt steht unter der MIT Lizenz.
