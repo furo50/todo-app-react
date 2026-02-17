@@ -1,9 +1,11 @@
 # Todo App - React Frontend
 
-Full-Stack Todo-Anwendung mit React und Spring Boot Backend. Features wie Dark Mode, Inline-Editing und Echtzeit-Fortschritts-Tracking.
+Full-Stack Todo-Anwendung mit React und Spring Boot Backend. JWT Authentication, Dark Mode, Inline-Editing und Echtzeit-Fortschritts-Tracking.
 
 ## Features
 
+- JWT-basierte Authentication (Login & Signup)
+- Protected Routes - nur eingeloggte User sehen die App
 - Todos erstellen, bearbeiten, löschen und abhaken
 - Filter für alle, aktive und erledigte Aufgaben
 - Fortschrittsbalken mit Prozent-Anzeige
@@ -14,17 +16,17 @@ Full-Stack Todo-Anwendung mit React und Spring Boot Backend. Features wie Dark M
 ## Tech Stack
 
 - React 18 mit Vite
-- Axios für API-Calls
+- React Router DOM - Routing & Protected Routes
+- Axios mit Interceptor für automatische Token-Übermittlung
 - CSS Variables für Theme-System
-- localStorage für Präferenzen
+- localStorage für Token & Theme-Präferenz
 
-## Installation
+## Voraussetzungen
 
-**Voraussetzungen:**
 - Node.js 18+
 - Laufendes Backend ([Repository](https://github.com/furo50/todo-app-backend))
 
-**Setup:**
+## Setup
 ```bash
 git clone https://github.com/furo50/todo-app-react.git
 cd todo-app-react
@@ -44,14 +46,40 @@ src/
 │   ├── TodoFilter/      # Filter-Buttons
 │   ├── TodoStats/       # Fortschrittsanzeige
 │   └── ThemeToggle/     # Dark Mode Toggle
-├── todoApi.js           # API-Service
-├── App.jsx              
-└── App.css              # Theme-System
+├── context/
+│   └── AuthContext.jsx  # Globaler Auth-State
+├── pages/
+│   ├── LoginPage/       # Login-Seite
+│   ├── SignupPage/      # Registrierung-Seite
+│   └── TodoPage/        # Haupt Todo-Seite (protected)
+├── utils/
+│   └── authApi.js       # Login & Signup API Calls
+├── todoApi.js           # Todo API-Service mit Axios Interceptor
+├── App.jsx              # Routing & Protected Routes
+└── App.css              # Theme-System mit CSS Variables
+```
+
+## Authentication Flow
+```
+User öffnet App
+↓
+Nicht eingeloggt? → Redirect zu /login
+↓
+Login/Signup erfolgreich → Token in localStorage
+↓
+Redirect zu / → Todo-App
+↓
+Logout → Token gelöscht → Redirect zu /login
 ```
 
 ## API Endpoints
 
-- `GET /api/todos` - Alle Todos laden
+### Auth
+- `POST /api/auth/signup` - Registrieren
+- `POST /api/auth/login` - Einloggen, Token erhalten
+
+### Todos (JWT erforderlich)
+- `GET /api/todos` - Todos des eingeloggten Users laden
 - `POST /api/todos` - Todo erstellen
 - `PUT /api/todos/{id}` - Todo aktualisieren
 - `DELETE /api/todos/{id}` - Todo löschen
@@ -76,6 +104,8 @@ Production-Build landet in `dist/`
 
 - [x] Edit-Funktion
 - [x] Dark Mode
+- [x] JWT Authentication
+- [x] Protected Routes
 - [ ] Drag & Drop
 - [ ] Kategorien/Tags
 - [ ] Fälligkeitsdatum
